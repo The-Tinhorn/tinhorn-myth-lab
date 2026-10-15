@@ -1,0 +1,17 @@
+{
+  "name": "tinhorn-myth-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Discord myth-busting idea pipeline: Submit, Review, Vote, Test, Publish",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js",
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">=22.13"
+  },
+  "dependencies": {
+    "discord.js": "14.27.0"
+  }
+}

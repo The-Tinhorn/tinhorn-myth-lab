@@ -1,0 +1,27 @@
+# Myth Lab bot. CasaOS: App Store → "+" → Install a customized app → Import → paste this file.
+# Put the bot's files in /DATA/AppData/myth-lab first (see README.md).
+name: myth-lab
+services:
+  myth-lab:
+    image: node:22-bookworm-slim
+    container_name: myth-lab
+    restart: unless-stopped
+    working_dir: /app
+    command: sh -c "npm install --omit=dev --no-audit --no-fund && exec node bot.js"
+    volumes:
+      - /DATA/AppData/myth-lab:/app
+    environment:
+      DISCORD_TOKEN: ""
+      GUILD_ID: ""
+      STAFF_ROLE_ID: ""
+x-casaos:
+  architectures: [amd64, arm64, arm]
+  main: myth-lab
+  author: Tinhorn
+  category: Utilities
+  title:
+    en_us: Myth Lab
+  tagline:
+    en_us: Discord myth-busting idea pipeline
+  description:
+    en_us: Submit, review, vote, test and publish community myths for Tinhorn videos.

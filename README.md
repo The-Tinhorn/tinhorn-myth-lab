@@ -22,22 +22,20 @@ Node.js 22.13+ · one dependency (`discord.js`) · data saved in `data/myth.db` 
 The names must match exactly. Staff = anyone with **Manage Messages**, or the role in `STAFF_ROLE_ID`.
 
 ## 3. Run it on CasaOS (Raspberry Pi)
-Uses the official `node:22` Docker image with the bot's files mounted from a folder, so there's nothing to build.
-Pi 3, 4, 5 or Zero 2 W (64-bit OS recommended).
+The image `ghcr.io/the-tinhorn/tinhorn-myth-lab:latest` is built automatically by GitHub on every push (PC, 64-bit and 32-bit Pi).
+Pi 3, 4, 5 or Zero 2 W.
 
-1. **Put the files on the Pi.** In CasaOS open **Files**, go to `/DATA/AppData/`, create a folder `myth-lab`, open it and upload everything from the zip (`bot.js`, `db.js`, `package.json`, `package-lock.json`, …).
-   Over SSH instead: `sudo unzip tinhorn-myth-lab.zip -d /DATA/AppData/myth-lab`
-2. **Install the app.** CasaOS → **App Store** → **+** (top right) → **Install a customized app** → **Import** → paste the contents of `docker-compose.yml` → Submit.
-3. In the settings screen that opens, fill in the environment variables `DISCORD_TOKEN` and `GUILD_ID` (`STAFF_ROLE_ID` optional) → **Install**.
-4. Check it: open the app's **⋮ → Logs**. After about a minute (first start installs the libraries) you should see `Logged in as ... Commands registered in "..."`.
+1. CasaOS → **App Store** → **+** (top right) → **Install a customized app** → **Import** → paste the contents of [`docker-compose.yml`](docker-compose.yml) → Submit.
+2. In the settings screen, fill in `DISCORD_TOKEN` and `GUILD_ID` (`STAFF_ROLE_ID` optional) → **Install**.
+3. Check it: app **⋮ → Logs** should show `Logged in as ... Commands registered in "..."`.
 
-It restarts by itself if it crashes or the Pi reboots. To change a setting later: app **⋮ → Settings**, edit the variable, Save.
+It restarts by itself if it crashes or the Pi reboots. To change a setting: app **⋮ → Settings**, edit, Save.
 
-**Updating:** upload the new files over the old ones in `/DATA/AppData/myth-lab`, then restart the app. Don't delete `data/`.
+**Updating:** push changes to GitHub, wait for the build (Actions tab), then in CasaOS hit the app's update/rebuild (or `docker compose pull && docker compose up -d`).
 
-**Backups:** your data is `/DATA/AppData/myth-lab/data/myth.db`. SD cards can die, so download a copy from Files now and then (stop the app first), and/or use `/myth export` for a CSV.
+**Backups:** your data is `/DATA/AppData/myth-lab/myth.db`. SD cards can die, so download a copy from CasaOS Files now and then (stop the app first), and/or use `/myth export` for a CSV.
 
-Not on CasaOS? Same file works anywhere with Docker: put the token values in `docker-compose.yml` and run `docker compose up -d`.
+Plain Docker: `docker pull ghcr.io/the-tinhorn/tinhorn-myth-lab`, or put your values in `docker-compose.yml` and `docker compose up -d`.
 
 ## 4. First run
 - `/ping` → Pong. (Phase 0 check: reboot the Pi and `/ping` again.)
